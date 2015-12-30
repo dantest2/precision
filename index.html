@@ -15,16 +15,16 @@ sections:
 
 {% for section in page.sections %}
 
-	<h1 class='impl-heading'><a id='#{section.tag}'></a>#{section.title}</h1>
+    <h1 class='impl-heading'><a id='#{section.tag}'></a>{{section.title}}</h1>
 
-	{% for listing in site.listings | where:"api", section.api %}
+    {% for listing in site.listings %}{% if listing.api == section.api %}
 
-		{% unless forloop.first %}
-			<hr />
-		{% endunless %}
-		<p>{{listing.content}}</p>
+        {% unless forloop.first %}
+            <hr />
+        {% endunless %}
+        <p>{{listing.content}}</p>
 
-	{% endfor %} 
+    {% endif %}{% endfor %} 
 
 {% endfor %}
 
