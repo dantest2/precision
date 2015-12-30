@@ -20,10 +20,48 @@ sections:
     <h1 class='impl-heading'><a id='#{section.tag}'></a>{{section.title}}</h1>
 
     {% for listing in listings %}{% if listing.api == section.api %}
+        {% if forloop.first %}
+            <div class="impl-row impl-row-first">
+        {% else %}
+            <div class="impl-row">
+        {% endif %}
 
-        <p>{{listing.name}}</p>
-        <p>{{listing.content}}</p>
+        <div class="logo-col">
+            <a href="{{listing.url}}" target="_blank">
+                <img class="logo" src="{{listing.logo}}" alt="{{listing.name}}" title="{{listing.name}}" />
+            </a>
+        </div>
 
+        <div class="detail-col"> <a id='#{listing.slug}'></a><div class="detail">
+            <h3><b>{{listing.name}}</b></h3>
+
+            {% unless listing.content == blank %}
+                <p>{{listing.content}}</p>
+            {% endunless %}
+            
+            {% if listing.patient %}
+                <p>Patient Facing: {{listing.patient}}</p>
+            {% endif %}
+            
+            <a href="{{listing.url}}" target="_blank">Website</a>
+            
+            {% if listing.contact and listing.contact.email %}
+                &nbsp;|&nbsp;<a href="mailto:{{listing.contact.email}}">{{listing.contact.name}}</a>
+            {% elsif listing.contact %}
+               &nbsp;|&nbsp;{{listing.contact.name}}
+            {% endif %}
+
+            {% if listing.also %}
+                {% if listing.also.api == "smart" %}
+                    <br />See also: <a href='#{{listing.also.slug}}'>Smart / Argonaut APIs</a>
+                {% elsif listing.also.api == "ios" %}
+                    <br />See also: <a href='#{{listing.also.slug}}'>HealthKit / ResearchKit APIs</a>
+                {% elsif listing.also?.api == "other" %}
+                    <br />See also: <a href='#{{listing.also.slug}}'>other APIs</a>
+            {% endif %}
+        </div></div></div>
+
+        </div>
     {% endif %}{% endfor %} 
 
 {% endfor %}
