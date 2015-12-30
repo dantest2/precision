@@ -1,11 +1,11 @@
 ---
 sections:
-  - title: "Implementing SMART / Argonaut APIs"
-    api: "smart"
-  - title: "Implementing HealthKit / ResearchKit APIs"
-    api: "ios"
-  - title: "Implementing Other APIs"
-    api: "other"
+ - title: "Implementing SMART / Argonaut APIs"
+   api: "smart"
+ - title: "Implementing HealthKit / ResearchKit APIs"
+   api: "ios"
+ - title: "Implementing Other APIs"
+   api: "other"
 
 ---
 <html>
@@ -18,16 +18,7 @@ sections:
     <h1 class='impl-heading'><a id='#{section.tag}'></a>{{section.title}}</h1>
 
     {% for listing in site.listings %}
-        {{listing.api}}{{section.api}}
-        
-        {% if listing.api == section.api %}
-
-            {% unless forloop.first %}
-                <hr />
-            {% endunless %}
-            <p>{{listing.content}}</p>
-
-        {% endif %}
+        <p>{{listing.api} : {{section.api}}</p>
     {% endfor %} 
 
 {% endfor %}
